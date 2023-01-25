@@ -93,7 +93,7 @@ export class OrdersService {
     if (order.status === OrderStatusEnum.NEW) {
       // Add to queue
       // returns the cook id
-      const queueId = await this.queuesService.assignQueue();
+      const queueId = await this.queuesService.assignQueue(order.orderId);
       order.queueId = stringToObjectId(queueId);
     }
 

@@ -80,13 +80,13 @@ export class QueuesController {
     return this.queuesService.updateQueue(Queue);
   }
 
-  @Delete(':QueueId')
+  @Delete(':queueId')
   @ApiOkResponse({
     description: 'Deletes a Queue',
     type: Boolean,
   })
   @ApiParam({
-    name: 'queueQueueId',
+    name: 'queueId',
     allowEmptyValue: false,
     description: 'Queue id',
     example: '123456789',
@@ -94,6 +94,6 @@ export class QueuesController {
     type: String,
   })
   deleteQueue(@Param() params) {
-    return this.queuesService.deleteQueue(params.QueueId);
+    return this.queuesService.deleteQueue(params.queueId);
   }
 }

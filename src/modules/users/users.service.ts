@@ -13,8 +13,8 @@ export class UsersService {
     return this.usersRepo.findOne({ _id: userId });
   }
 
-  getUsers(): Promise<User[]> {
-    return this.usersRepo.find({});
+  getUsers(filter?: Partial<User>): Promise<User[]> {
+    return this.usersRepo.find(filter);
   }
 
   getUserByEmail(email: string): Promise<User> {

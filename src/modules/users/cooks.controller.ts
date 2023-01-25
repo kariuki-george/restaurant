@@ -1,5 +1,4 @@
 import {
-  BadGatewayException,
   BadRequestException,
   Body,
   Controller,
@@ -8,7 +7,6 @@ import {
   Param,
   Post,
   Put,
-  Query,
 } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
@@ -26,34 +24,33 @@ import {
 import { CreateUserDto } from './dtos/createUser.dto';
 import { UpdateUserDto } from './dtos/updateUser.dto';
 import { CookEntity } from './entities/cook.entity';
-import { WaiterEntity } from './entities/waiter.entity';
 import { User } from './models/users.model';
 import { UsersService } from './users.service';
 
-@Controller('users')
+@Controller('cooks')
 @ApiTags('Users')
-export class CustomersController {
+export class CooksController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get()
-  getUsers(): Promise<User[]> {
-    return this.usersService.getUsers();
+  getCooks(): Promise<User[]> {
+    return this.usersService.getUsers({ isCook: true });
   }
 
-  @Get(':userId')
+  @Get(':cookId')
   @ApiNotFoundResponse({
-    description: 'User not found',
+    description: 'Cook not found',
   })
   @ApiOkResponse({
-    description: 'Return user with the provided id',
-    type: User || CookEntity || WaiterEntity,
+    description: 'Return Cook with the provided id',
+    type: CookEntity,
   })
   @ApiOperation({
     description:
-      'Return a user. The arguments are email or userId api queries should not be empty',
+      'Return a Cook. The arguments are email or cookId api queries should not be empty',
   })
   @ApiParam({
-    name: 'userId',
+    name: 'cookId',
     required: false,
     allowEmptyValue: false,
     example: '63ca9f9b63d553fe4c7ce544',
@@ -65,11 +62,9 @@ export class CustomersController {
     example: '63ca9f9b63d553fe4c7ce544',
   })
   @ApiBadRequestResponse({ description: 'Url Params not passed' })
-  getUserById(
-    @Param() param: { email?: string; userId?: string },
-  ): Promise<User> {
-    if (param.userId) {
-      return this.usersService.getUserById(param.userId);
+  getCook(@Param() param: { email?: string; cookId?: string }): Promise<User> {
+    if (param.cookId) {
+      return this.usersService.getUserById(param.cookId);
     }
     if (param.email) {
       return this.usersService.getUserByEmail(param.email);
@@ -79,13 +74,13 @@ export class CustomersController {
 
   @Post()
   @ApiCreatedResponse({
-    description: 'User created successfully',
+    description: 'Cook created successfully',
     type: User,
   })
   @ApiBadRequestResponse({
     description: EMAIL_ALREADY_EXISTS,
   })
-  createUser(@Body() body: CreateUserDto) {
+  createCook(@Body() body: CreateUserDto) {
     return this.usersService.createUser(body);
   }
 
@@ -100,21 +95,20 @@ export class CustomersController {
     return this.usersService.updateUser(body);
   }
 
-  @Delete(':userId')
+  @Delete(':cookId')
   @ApiParam({
-    name: 'userId',
+    name: 'cookId',
     required: true,
     allowEmptyValue: false,
     example: '63ca9f9b63d553fe4c7ce544',
   })
   @ApiOkResponse({
-    description: 'User deleted successfully',
+    description: 'Cook deleted successfully',
   })
   @ApiOperation({
-    description:
-      'This endpoint deletes customers only. It cannot be used with waiters and cooks',
+    description: 'This endpoint deletes cooks and associated data',
   })
   deleteUser(@Param() param) {
-    return this.usersService.deleteUser(param.userId);
+    return this.usersService.deleteUser(param.cookId);
   }
 }
