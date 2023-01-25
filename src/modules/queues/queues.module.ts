@@ -6,7 +6,7 @@ import { QueuesService } from './queues.service';
 import { QueuesController } from './queues.controller';
 
 @Module({
-  providers: [QueuesService, QueuesRepo,],
+  providers: [QueuesService, QueuesRepo],
   controllers: [QueuesController],
   imports: [
     MongooseModule.forFeature([{ name: Queue.name, schema: QueueSchema }]),

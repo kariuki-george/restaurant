@@ -48,7 +48,7 @@ export class QueuesService {
     return this.queuesRepo.findOneAndUpdate({ _id: queue.queueId }, queue);
   }
 
-  deleteQueue(queueId: string): Promise<Boolean> {
+  deleteQueue(queueId: string): Promise<boolean> {
     return this.queuesRepo.deleteOne({ _id: queueId });
   }
 
@@ -96,7 +96,7 @@ export class QueuesService {
     let index = 0;
 
     while (index < queues.length) {
-      let queueLength = queues[index].queueOrders.length;
+      const queueLength = queues[index].queueOrders.length;
       if (queueLength < min) {
         min = queueLength;
         queue = queues[index];

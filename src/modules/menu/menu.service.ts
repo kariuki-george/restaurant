@@ -20,7 +20,7 @@ export class MenuService {
     return this.menuItemsRepo.findOneAndUpdate({ _id: item.menuItemId }, item);
   }
 
-  deleteMenuItem(itemId: string): Promise<Boolean> {
+  deleteMenuItem(itemId: string): Promise<boolean> {
     return this.menuItemsRepo.deleteOne({ _id: itemId });
   }
 }

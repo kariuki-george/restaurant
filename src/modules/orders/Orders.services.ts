@@ -104,7 +104,7 @@ export class OrdersService {
     return this.ordersRepo.findOneAndUpdate({ _id: order.orderId }, order);
   }
 
-  deleteOrder(orderId: string): Promise<Boolean> {
+  deleteOrder(orderId: string): Promise<boolean> {
     return this.ordersRepo.deleteOne({ _id: orderId });
   }
 }

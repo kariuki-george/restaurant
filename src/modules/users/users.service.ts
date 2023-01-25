@@ -34,7 +34,7 @@ export class UsersService {
     return this.usersRepo.findOneAndUpdate({ _id: user.userId }, user);
   }
 
-  deleteUser(userId: string): Promise<Boolean> {
+  deleteUser(userId: string): Promise<boolean> {
     // Cleanup ip for cooks and waiters
 
     return this.usersRepo.deleteOne({ _id: userId });

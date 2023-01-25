@@ -1,5 +1,5 @@
 export class DeleteUserDto {
   userId: string;
-  isCook?: Boolean;
-  isWaiter?: Boolean;
+  isCook?: boolean;
+  isWaiter?: boolean;
 }

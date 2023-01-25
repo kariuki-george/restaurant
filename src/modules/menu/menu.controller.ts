@@ -72,6 +72,3 @@ export class MenuController {
     return this.menuService.deleteMenuItem(params.menuItemId);
   }
 }
-
-
-

@@ -82,7 +82,7 @@ export abstract class AbstractRepository<TDocument extends AbstractDocument> {
   async deleteOne(
     deleteQuery: FilterQuery<TDocument>,
     options?: QueryOptions<TDocument>,
-  ): Promise<Boolean> {
+  ): Promise<boolean> {
     return (await this.model.deleteOne(deleteQuery, options)).acknowledged;
   }
 
